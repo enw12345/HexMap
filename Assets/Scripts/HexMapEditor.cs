@@ -38,7 +38,7 @@ public class HexMapEditor : MonoBehaviour
     }
 
     /// <summary>
-    /// Takes care of all the editing of a cell and refreshes the grid
+    ///     Takes care of all the editing of a cell and refreshes the grid
     /// </summary>
     /// <param name="cell"></param>
     private void EditCell(HexCell cell)
