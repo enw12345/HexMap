@@ -17,13 +17,18 @@ public class HexCell : MonoBehaviour
             _elevation = value;
             var position = transform.localPosition;
             position.y = value * HexMetrics.ElevationStep;
+            position.y += (HexMetrics.SampleNoise(position).y * 2f - 1f) *
+                          HexMetrics.ElevationPerturbStrength;
+
             transform.localPosition = position;
 
             var uiPosition = UIRect.localPosition;
-            uiPosition.z = _elevation * -HexMetrics.ElevationStep;
+            uiPosition.z = -position.y;
             UIRect.localPosition = uiPosition;
         }
     }
+
+    public Vector3 Position => transform.localPosition;
 
     public HexCell GetNeighbor(HexDirection direction)
     {
@@ -35,7 +40,7 @@ public class HexCell : MonoBehaviour
         neighbors[(int) direction] = cell;
         cell.neighbors[(int) direction.Opposite()] = this;
     }
-    
+
     public HexEdgeType GetEdgeType(HexDirection direction)
     {
         return HexMetrics.GetEdgeType(_elevation,

@@ -22,6 +22,11 @@ public static class HexMetrics
     public const int TerraceSteps = TerracesPerSlope * 2 + 1;
     public const float HorizontalTerraceStepSize = 1f / TerraceSteps;
     public const float VerticalTerraceStepSize = 1f / (TerracesPerSlope + 1);
+    public const float CellPerturbStrength = 5f;
+
+    public const float NoiseScale = 0.003f;
+
+    public const float ElevationPerturbStrength = 1.5f;
 
     public static Texture2D NoiseSource;
 
@@ -90,15 +95,7 @@ public static class HexMetrics
     public static Vector4 SampleNoise(Vector3 position)
     {
         return NoiseSource.GetPixelBilinear(
-            position.x, position.z);
-    }
-
-    private static Vector3 Perturb(Vector3 position)
-    {
-        var sample = SampleNoise(position);
-        position.x += sample.x;
-        position.y += sample.y;
-        position.z += sample.z;
-        return position;
+            position.x * NoiseScale,
+            position.z * NoiseScale);
     }
 }

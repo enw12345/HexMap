@@ -104,6 +104,7 @@ public class HexGrid : MonoBehaviour
 
         label.text = hexCell.Coordinates.ToString();
         hexCell.UIRect = label.rectTransform;
+        hexCell.Elevation = 0;
     }
 
     public void Refresh()
